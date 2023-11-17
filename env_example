@@ -1,0 +1,9 @@
+MONGO_URI=mongodb+srv://hanslanda:halamadrid11@cluster0.zep2i0j.mongodb.net/hotels_booking?retryWrites=true&w=majority
+PORT=5000
+JWT_SECRET=qBU4itbebGRi6AkKUw5WlyO3sSMLeqMd
+JWT_LIFETIME=30d
+CLOUD_NAME=dyiedxbex
+CLOUD_API_KEY=485699918953279
+CLOUD_API_SECRET=sn3jIUuHBthSTAlmS4T_4K_4gV8
+NODE_ENV=production
+STRIPE_KEY=sk_test_51NzdlDEz26lIMCWwbTT8yCGN6TMilx6eMFI1x0OALIAeypEJ515awJTxnv5a3OWzitp2XQjkGFSMsjkr9c0IqbFq00p70pI65W
