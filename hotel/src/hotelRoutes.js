@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {authenticateUser, authorizePermissions} = require('./middleware/authentication')
+const {authenticateUser, authorizePermissions, decodeToken} = require('./middleware/authentication')
 
 const {
     createHotel, getAllHotels, updateHotel, deleteHotel, getSingleHotel
@@ -8,14 +8,14 @@ const {
 
 router
     .route('/')
-    .post([authenticateUser, authorizePermissions('admin')], createHotel)
+    .post([decodeToken, authorizePermissions('admin', 'owner')], createHotel)
     .get(getAllHotels);
 
 router
     .route('/:id')
     .get(getSingleHotel)
-    .patch([authenticateUser, authorizePermissions('admin')], updateHotel)
-    .delete([authenticateUser, authorizePermissions('admin')], deleteHotel)
+    .patch([decodeToken, authorizePermissions('admin', 'owner')], updateHotel)
+    .delete([decodeToken, authorizePermissions('admin', 'owner')], deleteHotel)
 
 
 module.exports = router;

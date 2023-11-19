@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const HotelSchema = new mongoose.Schema({
         name: {
@@ -49,21 +49,27 @@ const HotelSchema = new mongoose.Schema({
             type: Number,
             default: 0,
         },
-        rooms: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Room'
-        }],
         featured: {
             type: Boolean,
             default: false,
         },
         user: {
-            type: mongoose.Types.ObjectId,
-            //ref: 'User',
+            type: String,
             required: true,
         },
     },
     {timestamps: true, toJSON: {virtuals: true}, toObject: {virtuals: true}}
 );
+HotelSchema.index({hotel: 1, user: 1}, {unique: true});
 
-module.exports = mongoose.model("Hotel", HotelSchema)
+HotelSchema.virtual('rooms', {
+    ref: 'Room',
+    localField: '_id',
+    foreignField: 'hotel',
+    justOne: false,
+})
+HotelSchema.pre('remove', async function (next) {
+    await this.model('Room').deleteMany({hotel: this._id})
+})
+
+module.exports = mongoose.model('Hotel', HotelSchema)

@@ -1,10 +1,46 @@
 const CustomError = require('../errors')
 const {isTokenValid} = require('../utils')
+const admin = require('../configs/firebase-config');
+
+
+const decodeToken = async (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    //console.log('Token : '+token)
+    try {
+        const decodeValue = await admin.auth().verifyIdToken(token);
+        if (decodeValue) {
+            //console.log(decodeValue)
+            const userId= decodeValue.uid;
+            const email= decodeValue.email;
+            const isVerified= decodeValue.email_verified;
+
+            // Fetch additional user data including role from Firestore
+            const userDoc = await admin.firestore().collection('users').doc(userId).get();
+            const userData = userDoc.data();
+
+            // Access role from user data in Firestore
+            const role = userData?.role || 'user'; // Default role if not found
+
+            req.user={userId,email,isVerified,role}
+            return next();
+        }
+        return res.json({message: 'Unauthorized'});
+    } catch (e) {
+        console.log(e)
+        return res.json({message: e.message});
+    }
+}
+
 
 const authenticateUser = async (req, res, next) => {
-    const token = req.signedCookies.token
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
+        throw new CustomError.UnauthenticatedError('Authentication invalid')
+    }
+    const token = authHeader.split(' ')[1];
+
     if (!token) {
-        throw new CustomError.UnauthenticatedError('Authentication Invalid')
+        throw new CustomError.UnauthenticatedError('Authentication Invalid ff')
 
     }
     try {
@@ -29,5 +65,5 @@ const authorizePermissions = (...roles) => {
 }
 
 module.exports = {
-    authenticateUser, authorizePermissions
+    authenticateUser, authorizePermissions,decodeToken
 }
