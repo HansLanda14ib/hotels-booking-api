@@ -72,52 +72,52 @@ Before running this application, ensure you have the following prerequisites ins
 ### On localhost
 1. Create a `.env` file following the format specified in the `/api-gateway/env.example`,`/frontend/env.example`, `booking/env.example` and `hotel/env.example` directories, following the format specified in each microservice directory.
 2. Install dependencies for `root` directory, `hotel`, `booking`, and `api-gateway`:
-```bash
-npm install
-```
-And for frontend using:
-```bash
-yarn install
-```
+  ```bash
+  npm install
+  ```
+  And for frontend using:
+  ```bash
+  yarn install
+  ```
 4. If you want start all services at once, run from root directory :
 
-```bash
-npm run start:all
-```
+  ```bash
+  npm run start:all
+  ```
 5. If you want start each service separately, follow the instructions below:
 
 *But first run this in `root` directory:*
-```bash
-run npm install
-```
+  ```bash
+  run npm install
+  ```
 
 **- Hotel Service:**
 
 Navigate to the `hotel directory`, then start the hotel service : 
-```bash
-npm run hotelApp 
-```
+  ```bash
+  npm run hotelApp 
+  ```
 
 **- Booking Service: (not working for now)**
 
 Navigate to the `booking-service` directory, then start the booking service:
-```bash
-npm run bookingApp 
-```
+  ```bash
+  npm run bookingApp 
+  ```
 
 **- Frontend: (REACT)**
 
 Navigate to the frontend directory, then run :
-```bash
-npm start
-```
+  ```bash
+  npm start
+  ```
 
 **- api-gateway:**
 
 Navigate to the api-gateway directory, then run:
-```bash
-npm start
-```
+  ```bash
+  npm start
+  ```
 
 ⚡**Note**: ***You need to start all services before starting the api-gateway.***
 
