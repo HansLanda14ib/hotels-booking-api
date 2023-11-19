@@ -11,7 +11,7 @@ The application comprises multiple services:
 ## Architecture 
 ![App Screenshot](https://i.ibb.co/HtpGzBD/Whats-App-Image-2023-11-19-at-20-35-39-1b797d0c.jpg)
 
-[image](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/2fe09479-442d-4119-a53f-d90a125b6cd9)
+[Example](https://ibb.co/ZL1rWg3)
 
 
 ## Services
