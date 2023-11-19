@@ -11,6 +11,8 @@ The application comprises multiple services:
 ## Architecture 
 ![App Screenshot](https://i.ibb.co/HtpGzBD/Whats-App-Image-2023-11-19-at-20-35-39-1b797d0c.jpg)
 
+![WhatsApp Image 2023-11-19 at 20 35 39_b78ef28c](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/462e3a59-770c-48dc-bd0d-9867a5cb55f7)
+
 ## Services
 ### Hotel Service
 The Hotel Service handles hotel-related functionalities. It is developed using Node.js and Express.js, providing CRUD operations for hotels and interacts with a MongoDB database.
@@ -47,19 +49,35 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
 - Click : **Authentication** from the left menu then click on Get Started
 - Click : Email/Password then click on Enable
 - Go back to the left menu and click on **Project Overview**
-- Click : Add app then choose **web**
-  ![example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2ba0be7-23c1-42f3-a1b1-c854eb921f08)
+- Click : Add app then choose **web** : 
+  [example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2ba0be7-23c1-42f3-a1b1-c854eb921f08)
 
 - Give a name to your app then click on **Register app**
 ##### **Frontend-app setting:**
-- Copy the config object and paste it in the `.env` file in the **frontend directory**
-- Configure firestore:
+- Copy the config object and paste it in the `.env` file in the **frontend directory** (remember if you re using REACT, your env variables must start with `REACT_APP_` )
+  - `REACT_APP_APIKEY`= 
+  - `REACT_APP_AUTHDOMAIN`= 
+  - `REACT_APP_DATABASEURL`= 
+  - `REACT_APP_PROJECTID`= 
+  - `REACT_APP_STORAGEBUCKET`= 
+  - `REACT_APP_MESSAGINGSENDERID`= 
+  - `REACT_APP_APPID`=
+  
+  ** `.env` file example: **
+  
+  ![WhatsApp Image 2023-11-19 at 22 47 42_b2d4313d](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/17f5039a-1209-4258-98b1-c82b2b9e739e)
+
+
+- **Configure firestore:**
   - Click on **firestore** from the left menu then click on **Create database**
   - Choose Start in *test mode* then click on **Enable**
 ##### **Configure firebase for backend-app setting:**
 - Click on the :gear: next to Project Overview then click on **Project settings**
 - Click on **Service accounts** then click on *Generate new private key*
 - Copy the content of the downloaded file and paste in file named `service-account.json` in `hotel/firebase` directory
+- Example of `hotel/firebase/service-account.json` file :
+  
+  ![WhatsApp Image 2023-11-19 at 23 05 04_22096595](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/95995131-d6a7-47b0-a92a-a4b8605c4ae4)
 
 
 **4. Angular CLI:** If you plan to work on the frontend, you'll need Angular CLI. Install it globally using:
@@ -119,7 +137,7 @@ Navigate to the api-gateway directory, then run:
   npm start
   ```
 
-⚡**Note**: ***You need to start all services before starting the api-gateway.***
+## Note ⚡:You need to start all services before starting the api-gateway.
 
 ## Contributions and Issues
 Contributions and suggestions are welcome. If you encounter any issues or have ideas for improvements, please open an issue in this repository.
