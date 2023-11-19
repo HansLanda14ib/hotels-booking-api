@@ -68,7 +68,7 @@ HotelSchema.virtual('rooms', {
     foreignField: 'hotel',
     justOne: false,
 })
-HotelSchema.pre('remove', async function (next) {
+HotelSchema.pre('remove', async function () {
     await this.model('Room').deleteMany({hotel: this._id})
 })
 

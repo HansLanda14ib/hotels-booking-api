@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {authenticateUser, authorizePermissions, decodeToken} = require('./middleware/authentication')
+const { authorizePermissions, decodeToken} = require('./middleware/authentication')
 
 const {
     createRoom, getAllRooms, updateRoom, deleteRoom, getSingleRoom
