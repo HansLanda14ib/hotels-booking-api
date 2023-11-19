@@ -35,14 +35,15 @@ Before running this application, ensure you have the following prerequisites ins
 - Go to Atlas website [here](https://www.mongodb.com/cloud/atlas). and click on Try Free then create an account
 - Click on Build a Cluster then choose a provider and a region then click on Create Cluster
 - Click on Database Access from the left menu then click on Add new database user
-- give a username and a password then click on Add user
+- Give a username and a password then click on Add user
 - Click on Network Access from the left menu then click on Add IP Address
 - Click on Allow access from anywhere then click on Confirm
 - Click on Clusters from the left menu then click on Connect
 - Choose Connect your application then copy the connection string and paste it in the `.env` file variable named `MONGO_HOTEL_SERVICE` in the hotel directory
 - do the same for **the booking service** and paste the connection string in the `.env` file variable named `MONGO_BOOKING_SERVICE` in the booking directory
 
-**3. Firebase Account:** Set up a Firebase account and project for the Auth Service. You can create a project through the Firebase Console. 
+**3. Firebase Account:** 
+Set up a Firebase account and project for the Auth Service. You can create a project through the Firebase Console. 
 - Go to : https://console.firebase.google.com/
 - Click : Create a project and give a name to your project
 - Disable : Google Analytics for this project then wait for the project to be created.
@@ -50,6 +51,8 @@ Before running this application, ensure you have the following prerequisites ins
 - Click : Email/Password then click on Enable
 - Go back to the left menu and click on **Project Overview**
 - Click : Add app then choose **web**
+  ![example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2ba0be7-23c1-42f3-a1b1-c854eb921f08)
+
 - Give a name to your app then click on **Register app**
 ##### **Frontend-app setting:**
 - Copy the config object and paste it in the `.env` file in the **frontend directory**
