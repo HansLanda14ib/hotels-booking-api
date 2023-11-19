@@ -15,13 +15,14 @@ const RoomSchema = new mongoose.Schema(
             required: true,
         },
         bedrooms: {
-            type: Number
+            type: Number,
+            required: true,
         },
         beds: {
-            type: Number
+            type: Number, required: true,
         },
-        bathroomsNumber: {
-            type: Number
+        bathrooms: {
+            type: Number, required: true,
         },
         desc: {
             type: String,
@@ -29,12 +30,17 @@ const RoomSchema = new mongoose.Schema(
         },
         photos: {
             type: [String],
-            default: ['/uploads/default_room.jpg'],
+            default: ['/uploads/default_room.jpg'], required: true,
         },
         number: {
             type: Number,
             required: true,
         },
+        hotel: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Hotel',
+            required: true,
+        }
     },
     {timestamps: true}
 );
