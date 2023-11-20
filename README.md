@@ -22,9 +22,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ## III. Architecture 
 
-![image](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/a315d52d-dd54-41e5-beef-7b4f2409c2a9)
+<img width="210" alt="image" src="https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/976ac0fe-a488-4d56-ac62-638a44fca574">
 
-![image](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/7f5a88c4-838c-4bd4-911b-bd4e55454a81)
+
+<img width="256" alt="image" src="https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/b0a9556a-98af-4364-b5f7-0bffa9f28f93">
+
 
 
 ## IV. Services
