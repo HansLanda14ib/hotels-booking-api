@@ -112,7 +112,9 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
       cd hotel ; npm install
       cd ../booking ; npm install
       cd ../frontend ; yarn install
+      cd ../api-gateway ; npm install
       cd .. ; npm run start:all
+      
       ```
    - Command Prompt :
      ```bash
@@ -120,6 +122,7 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
       cd hotel && npm install
       cd ../booking && npm install
       cd ../frontend && yarn install
+     cd ../api-gateway && npm install
       cd .. && npm run start:all
       ```
 
