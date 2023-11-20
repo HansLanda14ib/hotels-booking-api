@@ -39,7 +39,7 @@ The Booking Service is responsible for managing bookings. Similar to the Hotel S
 The frontend is developed using Angular. It interacts with the services to provide a user-friendly interface for browsing hotels, making bookings, and managing user accounts.
 ## V. Clone repository
 ```bash
-git clone https://github.com/hanslanda14ib/FFRM_WEB.git
+git clone https://github.com/HansLanda14ib/hotels-booking-api.git
 ```
 ## VI.  Prerequisites & Preconfiguration
 Before running this application, ensure you have the following prerequisites installed and set up:
