@@ -1,7 +1,7 @@
 # Hotels Booking Web Application
 This project is a web application for hotel bookings using a microservices architecture.
 
-## Overview
+## I. Overview
 The application comprises multiple services:
 
 - Hotel Service: Built with Node.js and Express.js, utilizes MongoDB for its database.
@@ -9,7 +9,7 @@ The application comprises multiple services:
 - Booking Service: Another Node.js and Express.js service, interacting with a MongoDB database.
 - Frontend: Developed using Angular.
 
-## Built With
+## II. Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -20,12 +20,12 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * MongoDB Atlas
 * Firestore
 
-## Architecture 
+## III. Architecture 
 ![WhatsApp Image 2023-11-19 at 20 44 37_7920ae63](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/7ea821e6-129a-4b12-81c5-c599dafe2cfb)
 
 ![WhatsApp Image 2023-11-19 at 20 35 39_b78ef28c](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/462e3a59-770c-48dc-bd0d-9867a5cb55f7)
 
-## Services
+## IV. Services
 ### Hotel Service
 The Hotel Service handles hotel-related functionalities. It is developed using Node.js and Express.js, providing CRUD operations for hotels and interacts with a MongoDB database.
 
@@ -37,9 +37,13 @@ The Booking Service is responsible for managing bookings. Similar to the Hotel S
 
 ### Frontend
 The frontend is developed using Angular. It interacts with the services to provide a user-friendly interface for browsing hotels, making bookings, and managing user accounts.
-
-## Prerequisites
+## V. Clone repository
+```bash
+git clone https://github.com/hanslanda14ib/FFRM_WEB.git
+```
+## VI.  Prerequisites & Preconfiguration
 Before running this application, ensure you have the following prerequisites installed and set up:
+
 **1. Node.js:** Make sure you have Node.js installed on your machine. You can download it from [here](https://nodejs.org/en/download/current).
 
 **2. MongoDB:** For running the MongoDB databases used by the Hotel Service and Booking Service, use MongoDB Cloud from here.
@@ -98,7 +102,7 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
    ```
    *(NB : Im using REACT)*
 
-## Installation and Setup
+## VII.  Installation and Setup
 ### On localhost
 1. Create a `.env` file following the format specified in the `/api-gateway/env.example`,`/frontend/env.example`, `booking/env.example` and `hotel/env.example` directories, following the format specified in each microservice directory.
 2. Install dependencies for `root` directory, `hotel`, `booking`, and `api-gateway`, and the `frontend` *(using yarn)*, then **start all services at once** :
