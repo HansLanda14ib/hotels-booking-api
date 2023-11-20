@@ -21,9 +21,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * Firestore
 
 ## III. Architecture 
-![WhatsApp Image 2023-11-19 at 20 44 37_7920ae63](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/7ea821e6-129a-4b12-81c5-c599dafe2cfb)
 
-![WhatsApp Image 2023-11-19 at 20 35 39_b78ef28c](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/462e3a59-770c-48dc-bd0d-9867a5cb55f7)
+![image](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/a315d52d-dd54-41e5-beef-7b4f2409c2a9)
+
+![image](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/7f5a88c4-838c-4bd4-911b-bd4e55454a81)
+
 
 ## IV. Services
 ### Hotel Service
@@ -101,6 +103,10 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
   
     ![WhatsApp Image 2023-11-19 at 23 05 04_22096595](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/95995131-d6a7-47b0-a92a-a4b8605c4ae4)
 
+### ADDITIONAL VIDEO TUTORIAL 
+
+https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/14a3532b-a2c2-4c9c-af10-97886dfa5743
+
 
 **4. Angular CLI:** If you plan to work on the frontend, you'll need Angular CLI. Install it globally using:
    ```bash
@@ -128,7 +134,7 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
       cd hotel && npm install
       cd ../booking && npm install
       cd ../frontend && yarn install
-     cd ../api-gateway && npm install
+      cd ../api-gateway && npm install
       cd .. && npm run start:all
       ```
 
