@@ -8,8 +8,20 @@ The application comprises multiple services:
 - Auth Service: Utilizes Firebase for authentication and Firestore for the database.
 - Booking Service: Another Node.js and Express.js service, interacting with a MongoDB database.
 - Frontend: Developed using Angular.
+
+## Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+* Node.js
+* Express.js
+* Angular
+* Firebase
+* MongoDB Atlas
+* Firestore
+
 ## Architecture 
-![App Screenshot](https://i.ibb.co/HtpGzBD/Whats-App-Image-2023-11-19-at-20-35-39-1b797d0c.jpg)
+![WhatsApp Image 2023-11-19 at 20 44 37_7920ae63](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/7ea821e6-129a-4b12-81c5-c599dafe2cfb)
 
 ![WhatsApp Image 2023-11-19 at 20 35 39_b78ef28c](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/462e3a59-770c-48dc-bd0d-9867a5cb55f7)
 
@@ -141,6 +153,14 @@ Navigate to the api-gateway directory, then run:
   ```bash
   npm start
   ```
+## Roadmap
+
+- [x] Add Firebase Authentication / FireStore
+- [x] Add Middleware
+- [x] Add CRUD Hotel service
+- [ ] Add Cloudinary
+- [ ] Add Booking service
+- [ ] Add Online Payment via STRIPE
 
 ## Note ⚡:You need to start all services before starting the api-gateway.
 
