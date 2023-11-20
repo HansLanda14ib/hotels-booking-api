@@ -95,7 +95,7 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
   
           ** `.env` file example: **
   
-          ![WhatsApp Image 2023-11-19 at 22 47 42_b2d4313d](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/17f5039a-1209-4258-98b1-c82b2b9e739e)
+         ![env file example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/284c5ce6-b67c-4a88-bf7a-8ece96e77efe)
 
     ##### **Configure firebase for backend-app setting:**
   - Click on the :gear: next to Project Overview then click on **Project settings**
@@ -103,7 +103,8 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
   - Copy the content of the downloaded file and paste in file named `service-account.json` in `hotel/firebase` directory
   - Example of `hotel/firebase/service-account.json` file :
   
-    ![WhatsApp Image 2023-11-19 at 23 05 04_22096595](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/95995131-d6a7-47b0-a92a-a4b8605c4ae4)
+   ![service-account.json](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/ae919115-87c9-4cb0-a98d-91dcd6f2806f)
+
 
 ### ADDITIONAL VIDEO TUTORIAL 
 
