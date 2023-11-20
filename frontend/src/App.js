@@ -1,11 +1,12 @@
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import {useEffect, useState} from 'react';
 import ListOfTodo from './components/ListOfTodo';
 import Hotels from "./components/Hotels";
 //import GetAllUsers from "./components/GetAllUsers";
-
+const db = firebase.firestore();
 function App() {
     const [auth, setAuth] = useState(
         window.localStorage.getItem('auth') === 'true'
@@ -59,7 +60,8 @@ function App() {
             const user = userCredential.user;
             //console.log(user)
             // Update additional user information in Firestore
-            const userDocRef = firebase.firestore().collection('users').doc(user.uid);
+            const userDocRef = db.collection('users').doc(user.uid);
+            console.log(firebase.firestore().collection('users').doc(user.uid))
             await userDocRef.set({
                 firstName: firstName,
                 lastName: lastName,
@@ -67,17 +69,11 @@ function App() {
                 email: email,
                 role: 'user',
                 _id: user.uid,
-                // You can add more fields as needed
             });
 
-            // Update display name (optional)
             await user.updateProfile({
                 displayName: `${firstName} ${lastName}`,
             });
-
-            //console.log('User created successfully');
-
-            // ...additional logic if needed
 
         } catch (error) {
             console.error('Error signing up:', error.message);
@@ -95,7 +91,9 @@ function App() {
     const handleSignUp = (e) => {
         e.preventDefault();
         setError(null); // Reset any previous errors
-        signUpWithEmailAndPassword(email, password, firstName, lastName, phoneNumber);
+        signUpWithEmailAndPassword(email, password, firstName, lastName, phoneNumber).then(r => {
+            console.log(r)
+        });
     };
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -161,7 +159,9 @@ function App() {
                         {error && <p>{error}</p>}
                     </div>
                     <div className="signin">
-                        <form onSubmit={handleSignIn}>
+                        {/*
+
+                         <form onSubmit={handleSignIn}>
                             <div>
                                 <label>Email:</label>
                                 <input
@@ -180,6 +180,8 @@ function App() {
                             </div>
                             <button type="submit">Sign In</button>
                         </form>
+
+                        */}
                     </div>
                 </div>
             )}
