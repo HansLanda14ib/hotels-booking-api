@@ -89,20 +89,25 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
 ## Installation and Setup
 ### On localhost
 1. Create a `.env` file following the format specified in the `/api-gateway/env.example`,`/frontend/env.example`, `booking/env.example` and `hotel/env.example` directories, following the format specified in each microservice directory.
-2. Install dependencies for `root` directory, `hotel`, `booking`, and `api-gateway`:
-  ```bash
-  npm install
-  ```
-  And for frontend using:
-  ```bash
-  yarn install
-  ```
-4. If you want start all services at once, run from root directory :
+2. Install dependencies for `root` directory, `hotel`, `booking`, and `api-gateway`, and the `frontend` *(using yarn)*, then **start all services at once** :
+   - WindwosPowerShell
+      ```bash
+      npm install
+      cd hotel ; npm install
+      cd ../booking ; npm install
+      cd ../frontend ; yarn install
+      cd .. ; npm run start:all
+      ```
+   - Command Prompt :
+     ```bash
+      npm install
+      cd hotel && npm install
+      cd ../booking && npm install
+      cd ../frontend && yarn install
+      cd .. && npm run start:all
+      ```
 
-  ```bash
-  npm run start:all
-  ```
-5. If you want start each service separately, follow the instructions below:
+3. If you want start each service separately, follow the instructions below:
 
 *But first run this in `root` directory:*
   ```bash
