@@ -107,7 +107,11 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
 
 ### ADDITIONAL VIDEO TUTORIAL 
 
-https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/14a3532b-a2c2-4c9c-af10-97886dfa5743
+
+
+https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2cad24e-3339-42c2-9eb6-67a53b85fe6b
+
+
 
 
 **4. Angular CLI:** If you plan to work on the frontend, you'll need Angular CLI. Install it globally using:
