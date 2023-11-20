@@ -62,38 +62,44 @@ Set up a Firebase account and project for the Auth Service. You can create a pro
 - Go to : https://console.firebase.google.com/
 - Click : Create a project and give a name to your project
 - Disable : Google Analytics for this project then wait for the project to be created.
-- Click : **Authentication** from the left menu then click on Get Started
-- Click : Email/Password then click on Enable
+- **Configure Authentication:**
+    - Click : **Authentication** from the left menu then click on Get Started
+    - Click : Email/Password then click on Enable
 - Go back to the left menu and click on **Project Overview**
-- Click : Add app then choose **web** : 
-  [example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2ba0be7-23c1-42f3-a1b1-c854eb921f08)
-
-- Give a name to your app then click on **Register app**
-##### **Frontend-app setting:**
-- Copy the config object and paste it in the `.env` file in the **frontend directory** (remember if you re using REACT, your env variables must start with `REACT_APP_` )
-  - `REACT_APP_APIKEY`= 
-  - `REACT_APP_AUTHDOMAIN`= 
-  - `REACT_APP_DATABASEURL`= 
-  - `REACT_APP_PROJECTID`= 
-  - `REACT_APP_STORAGEBUCKET`= 
-  - `REACT_APP_MESSAGINGSENDERID`= 
-  - `REACT_APP_APPID`=
   
-  ** `.env` file example: **
-  
-  ![WhatsApp Image 2023-11-19 at 22 47 42_b2d4313d](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/17f5039a-1209-4258-98b1-c82b2b9e739e)
-
-
 - **Configure firestore:**
-  - Click on **firestore** from the left menu then click on **Create database**
-  - Choose Start in *test mode* then click on **Enable**
-##### **Configure firebase for backend-app setting:**
-- Click on the :gear: next to Project Overview then click on **Project settings**
-- Click on **Service accounts** then click on *Generate new private key*
-- Copy the content of the downloaded file and paste in file named `service-account.json` in `hotel/firebase` directory
-- Example of `hotel/firebase/service-account.json` file :
+    - Click on **firestore** from the left menu then click on **Create database**
+    - Choose Start in *test mode* then click on **Enable**
+
+- **Configure Realtime Database:**
+    - Click on **RealTime Database** from the left menu then click on **Create database**
+    - Choose Start in *test mode* then click on **Enable**
+
+- Go back to the left menu and click on **Project Overview**
+    - Click : Add app then choose **web** : 
+    [example](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/f2ba0be7-23c1-42f3-a1b1-c854eb921f08)
+    - Give a name to your app then click on **Register app**
+      ##### **Frontend-app setting:**
+    - Copy the config object and paste it in the `.env` file in the **frontend directory** (remember if you re using REACT, your env variables must start with `REACT_APP_` )
+          - `REACT_APP_APIKEY`= 
+          - `REACT_APP_AUTHDOMAIN`= 
+          - `REACT_APP_DATABASEURL`= 
+          - `REACT_APP_PROJECTID`= 
+          - `REACT_APP_STORAGEBUCKET`= 
+          - `REACT_APP_MESSAGINGSENDERID`= 
+          - `REACT_APP_APPID`=
   
-  ![WhatsApp Image 2023-11-19 at 23 05 04_22096595](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/95995131-d6a7-47b0-a92a-a4b8605c4ae4)
+          ** `.env` file example: **
+  
+          ![WhatsApp Image 2023-11-19 at 22 47 42_b2d4313d](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/17f5039a-1209-4258-98b1-c82b2b9e739e)
+
+    ##### **Configure firebase for backend-app setting:**
+  - Click on the :gear: next to Project Overview then click on **Project settings**
+  - Click on **Service accounts** then click on *Generate new private key*
+  - Copy the content of the downloaded file and paste in file named `service-account.json` in `hotel/firebase` directory
+  - Example of `hotel/firebase/service-account.json` file :
+  
+    ![WhatsApp Image 2023-11-19 at 23 05 04_22096595](https://github.com/HansLanda14ib/hotels-booking-api/assets/100965812/95995131-d6a7-47b0-a92a-a4b8605c4ae4)
 
 
 **4. Angular CLI:** If you plan to work on the frontend, you'll need Angular CLI. Install it globally using:
