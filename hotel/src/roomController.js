@@ -3,12 +3,17 @@ const Hotel = require('./hotelModel')
 const CustomError = require('./errors')
 const {StatusCodes} = require("http-status-codes");
 const {checkPermissions} = require("./utils");
+let channel;
+
+
+
+
 const createRoom = async (req, res) => {
     const userId = req.user.userId
     const hotel = await Hotel.findOne({user: userId})
     console.log(hotel)
     if (!hotel) throw new CustomError.NotFoundError('hotel not found, must add your hotel first')
-    const room = await Room.create({...req.body, hotel: hotel._id})
+    const room = await Room.create({...req.body, hotel: hotel._id, ownerEarnedPrice: req.body.basePrice * 0.95})
     res.status(StatusCodes.CREATED).json({success: true, message: 'Room created successfully', room});
 }
 const updateRoom = async (req, res) => {
@@ -44,6 +49,10 @@ const getSingleRoom = async (req, res) => {
     res.status(StatusCodes.OK).json({success: true, message: 'get room successfully', room})
 }
 
+const bookRoom = async (req, res) => {
+
+}
+
 module.exports = {
-    getAllRooms, deleteRoom, createRoom, getSingleRoom, updateRoom
+    getAllRooms, deleteRoom, createRoom, getSingleRoom, updateRoom, bookRoom
 }

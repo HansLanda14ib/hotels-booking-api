@@ -159,7 +159,7 @@ function App() {
                         {error && <p>{error}</p>}
                     </div>
                     <div className="signin">
-                        {/*
+
 
                          <form onSubmit={handleSignIn}>
                             <div>
@@ -181,7 +181,7 @@ function App() {
                             <button type="submit">Sign In</button>
                         </form>
 
-                        */}
+
                     </div>
                 </div>
             )}
