@@ -47,6 +47,7 @@ const getSingleHotel = async (req, res) => {
     res.status(StatusCodes.OK).json({success: true, message: 'get hotel successfully', hotel})
 }
 
+
 module.exports = {
     getAllHotels, deleteHotel, createHotel, getSingleHotel, updateHotel
 }

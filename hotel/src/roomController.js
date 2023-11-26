@@ -3,9 +3,6 @@ const Hotel = require('./hotelModel')
 const CustomError = require('./errors')
 const {StatusCodes} = require("http-status-codes");
 const {checkPermissions} = require("./utils");
-let channel;
-
-
 
 
 const createRoom = async (req, res) => {
@@ -52,6 +49,7 @@ const getSingleRoom = async (req, res) => {
 const bookRoom = async (req, res) => {
 
 }
+
 
 module.exports = {
     getAllRooms, deleteRoom, createRoom, getSingleRoom, updateRoom, bookRoom

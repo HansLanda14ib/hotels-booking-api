@@ -1,102 +1,118 @@
 require('dotenv').config();
 require('express-async-errors');
-const Booking = require('./bookingModel');
-const amqp = require("amqplib");
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 5002;
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+
 //db
 const connectDB = require('./db/connect');
 
-
 // routes
-
 const bookingRouter = require('./bookingRoutes');
-
 
 // morgan and cookie-parser
 const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
-const fileUpload = require('express-fileupload')
-//const rateLimiter = require('express-rate-limit');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
-/*
-app.set('trust proxy', 1);
-app.use(
-    rateLimiter({
-        windowMs: 15 * 60 * 1000,
-        max: 60,
-    })
-);*/
+const amqp = require("amqplib");
+const Booking = require("./bookingModel");
+const mongoose = require("mongoose");
+
+
 app.use(helmet());
 app.use(cors());
 app.use(xss());
 app.use(mongoSanitize());
-
-
 app.use(morgan('tiny'))
 app.use(express.json());
-app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.static('./public'));
-app.use(fileUpload({useTempFiles: true}));
 
 
 // rabbitmq
+const setupBookingConsumer = async () => {
+    try {
+        const connection = await amqp.connect("amqp://localhost:5672");
+        const channel = await connection.createChannel();
+        await channel.assertQueue("BOOKING", {durable: true});
+        console.log("Booking Service: RabbitMQ connected");
 
-let channel, connection;
+        await channel.consume("BOOKING", async (data) => {
+            const {room, payload} = JSON.parse(data.content.toString());
 
-async function connectMQ() {
-    const amqpServer = "amqp://localhost:5672";
-    connection = await amqp.connect(amqpServer);
-    channel = await connection.createChannel();
-    await channel.assertQueue("BOOK");
-}
+            try {
+                const bookings = await Booking.aggregate([
+                    {
+                        $match: {
+                            room: mongoose.Types.ObjectId(room._id),
+                            $or: [
+                                {
+                                    checkInDate: {$lt: new Date(payload.checkOutDate)},
+                                    checkOutDate: {$gt: new Date(payload.checkInDate)}
+                                },
+                                {
+                                    checkOutDate: {$gt: new Date(payload.checkInDate)},
+                                    checkInDate: {$lt: new Date(payload.checkOutDate)}
+                                }
+                            ]
+                        }
+                    }
+                ]).exec();
 
-connectMQ().then(() => {
-    channel.consume(
-        "BOOK",
-        (data) => {
-            console.log("Consuming data from BOOK queue")
-            const {room, payload} = JSON.parse(data.content.toString())
-            //console.log(room)
-            const booking = new Booking({
-                room: room._id,
-                user: payload.user,
-                checkInDate: payload.checkInDate,
-                checkOutDate: payload.checkOutDate,
-                guests: payload.guests,
-                basePrice: room.basePrice,
-                ownerEarnedPrice: room.ownerEarnedPrice
-            })
-            booking.save()
-            channel.ack(data)
-            channel.sendToQueue(
-                "ROOM",
-                Buffer.from(JSON.stringify(booking))
-            );
+                if (bookings.length === 0) {
+                    // Create booking if room is available
+                    const booking = new Booking({
+                        room: room._id,
+                        user: payload.user,
+                        checkInDate: payload.checkInDate,
+                        checkOutDate: payload.checkOutDate,
+                        guests: payload.guests,
+                        basePrice: room.basePrice,
+                        ownerEarnedPrice: room.ownerEarnedPrice
+                    });
 
-        }
-    )
+                    const bookingData = await booking.save();
+                    await channel.sendToQueue("ROOMS", Buffer.from(JSON.stringify({
+                            success: true,
+                            msg: 'Booking successful.',
+                            booking:bookingData
+                    })));
+                } else {
+                    // Room is already booked for the specified dates
+                    await channel.sendToQueue("ROOMS", Buffer.from(JSON.stringify({
+                        success: false,
+                        msg: 'Room is already booked for the specified dates.',
+                        booking: null
+                    })));
+                }
+                await channel.ack(data);
+            } catch (error) {
+                console.error("Error processing message:", error);
+                await channel.reject(data, false);
+            }
+        });
+    } catch (err) {
+        console.error("Failed to connect to RabbitMQ:", err.message);
+    }
+};
 
-})
+// other routes
 app.use('/api/v1/bookings', bookingRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 5002;
 
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_BOOKING_SERVICE);
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
-
+        await setupBookingConsumer();
     } catch (error) {
         console.log(error);
     }
@@ -104,4 +120,4 @@ const start = async () => {
 
 start();
 
-module.exports = {app, connectMQ};
+module.exports = {app};

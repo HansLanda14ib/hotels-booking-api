@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { authorizePermissions, decodeToken} = require('./middleware/authentication')
+const {authorizePermissions, decodeToken} = require('./middleware/authentication')
 
 const {
-    createRoom, getAllRooms, updateRoom, deleteRoom, getSingleRoom,bookRoom
+    createRoom, getAllRooms, updateRoom, deleteRoom, getSingleRoom, bookRoom
 } = require('./roomController');
 
 router
@@ -17,5 +17,7 @@ router
     .get(getSingleRoom)
     .patch([decodeToken, authorizePermissions('admin', 'owner')], updateRoom)
     .delete([decodeToken, authorizePermissions('admin', 'owner')], deleteRoom)
+
+//.route('/book/:id').post(bookRoom)
 
 module.exports = router;

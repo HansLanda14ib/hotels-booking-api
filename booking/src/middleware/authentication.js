@@ -1,9 +1,7 @@
 const CustomError = require('../errors')
-const {isTokenValid} = require('../utils')
 const admin = require('../configs/firebase-config');
 
-
-const decodeToken = async (req, res, next) => {
+const isAuthenticate = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     //console.log('Token : '+token)
     try {
@@ -31,27 +29,6 @@ const decodeToken = async (req, res, next) => {
     }
 }
 
-
-const authenticateUser = async (req, res, next) => {
-    const authHeader = req.headers.authorization
-    if (!authHeader || !authHeader.startsWith('Bearer')) {
-        throw new CustomError.UnauthenticatedError('Authentication invalid')
-    }
-    const token = authHeader.split(' ')[1];
-
-    if (!token) {
-        throw new CustomError.UnauthenticatedError('Authentication Invalid ff')
-
-    }
-    try {
-        const {name, userId, role} = isTokenValid({token})
-        req.user = {name, userId, role}
-        next()
-    } catch (error) {
-        throw new CustomError.UnauthenticatedError('Authentication Invalid')
-    }
-}
-
 const authorizePermissions = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
@@ -65,5 +42,5 @@ const authorizePermissions = (...roles) => {
 }
 
 module.exports = {
-    authenticateUser, authorizePermissions,decodeToken
+    authorizePermissions,isAuthenticate
 }

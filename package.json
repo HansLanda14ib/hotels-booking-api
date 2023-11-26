@@ -4,28 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 20000 --recursive --exclude '**/node_modules/**' '**/*.test.js' --exit",
-    "start:all": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \" \" cd frontend && npm start\" \" cd api-gateway && node index.js\" --names \"Hotel,Booking,Front,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold,bgGreen.bold\""
-
+    "start:all": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \"  \" cd frontend && npm start\" \" cd api-gateway && node index.js\" --names \"Hotel,Front,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgRed.bold,bgGreen.bold\"",
+    "start:hotel": "cd hotel && nodemon index.js",
+    "start:booking": "cd booking && nodemon index.js",
+    "start:frontend": "cd frontend && npm start",
+    "start:api-gateway": "cd api-gateway && node index.js",
+    "start:hotel-booking": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \" --names \"Hotel,Booking\" --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "amqplib": "^0.10.3",
-    "chai": "^4.3.7",
-    "chai-http": "^4.3.0",
-    "express": "^4.18.2",
-    "mocha": "^10.2.0",
-    "express-async-errors": "^3.1.1",
-    "mongoose": "^7.0.0",
-    "http-status-codes": "^2.1.4",
-    "jsonwebtoken": "9.0.2"
-  },
-  "devDependencies": {
-    "dotenv": "^16.0.3",
-    "jsonwebtoken": "^9.0.0",
-    "wait-on": "^7.0.1"
-  }
+  "license": "ISC"
 }

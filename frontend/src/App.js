@@ -34,6 +34,7 @@ function App() {
         });
     }, []);
 
+
     const loginWithGoogle = () => {
         firebase
             .auth()

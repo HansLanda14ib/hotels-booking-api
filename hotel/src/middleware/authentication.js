@@ -5,6 +5,8 @@ const admin = require('../configs/firebase-config');
 
 const decodeToken = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
+
+    // throw new CustomError.UnauthenticatedError('Authentication Invalid')
     //console.log('Token : '+token)
     try {
         const decodeValue = await admin.auth().verifyIdToken(token);
