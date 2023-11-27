@@ -11,7 +11,7 @@ const createRoom = async (req, res) => {
     console.log(hotel)
     if (!hotel) throw new CustomError.NotFoundError('hotel not found, must add your hotel first')
     const room = await Room.create({...req.body, hotel: hotel._id, ownerEarnedPrice: req.body.basePrice * 0.95})
-    res.status(StatusCodes.CREATED).json({success: true, message: 'Room created successfully', room});
+    res.status(StatusCodes.CREATED).json(room);
 }
 const updateRoom = async (req, res) => {
     const {id: roomId} = req.params
@@ -22,25 +22,23 @@ const updateRoom = async (req, res) => {
     const userId = hotel.user
     checkPermissions(req.user, userId)
     const updatedRoom = await Room.findOneAndUpdate({_id: roomId}, req.body, {runValidators: true, new: true})
-    res.status(StatusCodes.OK).json({success: true, message: 'Room updated successfully', room: updatedRoom})
+    res.status(StatusCodes.OK).json(updatedRoom)
 }
 const deleteRoom = async (req, res) => {
     const room = await Room.findOne({_id: req.params.id})
     if (!room) throw new CustomError.NotFoundError('room not found')
     await room.remove()
-    res.status(StatusCodes.OK).json({success: true, message: 'Hotel deleted successfully'})
+    res.status(StatusCodes.OK).json({message: 'Hotel deleted successfully'})
 }
 const getAllRooms = async (req, res) => { // for specific hotel
     const rooms = await Room.find({hotel: req.params.id})
-    res.status(StatusCodes.OK).json({
-        success: true, message: 'get all rooms successfully', count: rooms.length, rooms
-    })
+    res.status(StatusCodes.OK).json(rooms)
 }
 
 const getSingleRoom = async (req, res) => {
     const room = await Room.findOne({_id: req.params.id})
     if (!room) throw new CustomError.NotFoundError('room not found with this id: ' + req.params.id)
-    res.status(StatusCodes.OK).json({success: true, message: 'get room successfully', room})
+    res.status(StatusCodes.OK).json(room)
 }
 
 const bookRoom = async (req, res) => {
