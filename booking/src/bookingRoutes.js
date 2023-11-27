@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {authorizePermissions, isAuthenticate} = require('./middleware/authentication')
+const {
+    authorizePermissions,
+    authenticateJWTToken,
+    authenticateFirebaseToken,
+} = require('./middleware/authentication')
 
 const {
     getAllBooking,
@@ -8,24 +12,26 @@ const {
     updateBooking,
     deleteBooking,
     getCustomerBookings,
-    getHotelBookings
+    getHotelBookings, createBooking
 } = require('./bookingController');
 
 router
     .route('/admin')
-    .get([isAuthenticate, authorizePermissions('admin')], getAllBooking)
+    .get([authenticateFirebaseToken, authorizePermissions('admin')], getAllBooking)
 
 router
     .route('/admin/:id')
-    .patch([isAuthenticate, authorizePermissions('admin')], updateBooking)
-    .delete([isAuthenticate, authorizePermissions('admin')], deleteBooking)
+    .patch([authenticateFirebaseToken, authorizePermissions('admin')], updateBooking)
+    .delete([authenticateFirebaseToken, authorizePermissions('admin')], deleteBooking)
 
 router
-    .get('/', isAuthenticate, getCustomerBookings)
+    .get('/', authenticateFirebaseToken, getCustomerBookings)
 
 router
     .route('/owner')
-    .get([isAuthenticate, authorizePermissions('owner')], getHotelBookings)
+    .get([authenticateFirebaseToken, authorizePermissions('owner')], getHotelBookings)
 
-
+router.route('/create').post(
+    authenticateJWTToken,
+    createBooking)
 module.exports = router;

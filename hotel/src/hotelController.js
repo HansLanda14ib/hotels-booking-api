@@ -48,6 +48,7 @@ const getSingleHotel = async (req, res) => {
 }
 
 
+
 module.exports = {
     getAllHotels, deleteHotel, createHotel, getSingleHotel, updateHotel
 }

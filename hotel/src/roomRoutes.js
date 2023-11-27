@@ -18,6 +18,6 @@ router
     .patch([decodeToken, authorizePermissions('admin', 'owner')], updateRoom)
     .delete([decodeToken, authorizePermissions('admin', 'owner')], deleteRoom)
 
-//.route('/book/:id').post(bookRoom)
+router.route('/book/:id').post(decodeToken,bookRoom)
 
 module.exports = router;

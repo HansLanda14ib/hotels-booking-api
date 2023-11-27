@@ -1,6 +1,7 @@
 const CustomError = require('../errors')
 const {isTokenValid} = require('../utils')
 const admin = require('../configs/firebase-config');
+const {StatusCodes} = require("http-status-codes");
 
 
 const decodeToken = async (req, res, next) => {
@@ -28,8 +29,8 @@ const decodeToken = async (req, res, next) => {
         }
         return res.json({message: 'Unauthorized'});
     } catch (e) {
-        console.log(e)
-        return res.json({message: e.message});
+        //console.log(e)
+        return res.status(StatusCodes.UNAUTHORIZED).json({message: 'Missing or invalid token.'});
     }
 }
 

@@ -56,7 +56,7 @@ const getHotelBookings = async (req, res) => {
 
 
 }
-
+/*
 const createBooking = async (room, payload) => {
     let bookingData;
     Booking.aggregate([
@@ -106,6 +106,9 @@ const createBooking = async (room, payload) => {
 
     });
 }
+
+ */
+/*
 const createBooking2 = async (room, payload) => {
     return new Promise((resolve, reject) => {
         Booking.aggregate([
@@ -157,8 +160,60 @@ const createBooking2 = async (room, payload) => {
         });
     });
 };
+*/
+const createBooking = async (req, res) => {
+    const {roomId, maxPeople,basePrice, ownerEarnedPrice, checkInDate, checkOutDate, guests, user} = req.body
+    const checkInFilter = [
+        {
+            checkInDate: {$lt: new Date(checkOutDate)},
+            checkOutDate: {$gt: new Date(checkInDate)}
+        },
+        {
+            checkOutDate: {$gt: new Date(checkInDate)},
+            checkInDate: {$lt: new Date(checkOutDate)}
+        }
+    ]
+    let docs = await Booking.aggregate([
+        {
+            $match: {
+                room: mongoose.Types.ObjectId(roomId),
+                $or: checkInFilter
+            }
+        }
+
+    ])
+    console.log("length: " + docs.length)
+    if (docs.length > 0) {
+        return res.status(StatusCodes.BAD_REQUEST).send('Room is already booked for the specified dates.');
+
+    }
+    console.log('No conflicting bookings found for the room.');
+    const booking = new Booking
+    ({
+        room: roomId,
+        user: user,
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate,
+        guests: guests,
+        basePrice: basePrice,
+        ownerEarnedPrice: ownerEarnedPrice
+    });
+    const bookingData = await booking.save();
+    const bookingCreated = {
+        room: bookingData.room,
+        checkInDate: bookingData.checkInDate,
+        checkOutDate: bookingData.checkOutDate,
+        guests: bookingData.guests,
+        basePrice: bookingData.basePrice,
+        ownerEarnedPrice: bookingData.ownerEarnedPrice,
+        paymentStatus: bookingData.paymentStatus,
+        taxes: bookingData.taxes,
+        totalPrice: bookingData.totalPrice,
+    }
+    return res.json(bookingCreated)
 
 
+}
 module.exports = {
     getAllBooking,
     getSingleBooking,
@@ -166,7 +221,6 @@ module.exports = {
     deleteBooking,
     getCustomerBookings,
     getHotelBookings,
-    createBooking,
-    createBooking2
+    createBooking
 
 };

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:all": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \"  \" cd frontend && npm start\" \" cd api-gateway && node index.js\" --names \"Hotel,Front,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgRed.bold,bgGreen.bold\"",
+    "start:all": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \" \" cd frontend && npm start\" \" cd api-gateway && node index.js\" --names \"Hotel,Booking,Front,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgRed.bold,bgBlue.bold,bgGreen.bold\"",
     "start:hotel": "cd hotel && nodemon index.js",
     "start:booking": "cd booking && nodemon index.js",
     "start:frontend": "cd frontend && npm start",

@@ -24,16 +24,19 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
-const amqp = require("amqplib");
-const Room = require("./RoomModel");
-const CustomError = require("./errors");
-const {StatusCodes} = require("http-status-codes");
+// const amqp = require("amqplib");
+//const Room = require("./RoomModel");
+//const CustomError = require("./errors");
+// const {StatusCodes} = require("http-status-codes");
 
 
-let channel, connection;
+
 
 // rabbitmq
+let channel, connection;
+/*
 async function connect() {
+
     connection = await amqp.connect("amqp://localhost:5672");
     channel = await connection.createChannel();
     await channel.assertQueue("ROOMS");
@@ -41,7 +44,7 @@ async function connect() {
 }
 
 connect();
-
+*/
 
 app.use(helmet());
 app.use(cors());
@@ -57,7 +60,9 @@ app.use(fileUpload({useTempFiles: true}));
 app.use('/api/v1/hotels', hotelRouter);
 app.use('/api/v1/rooms', roomRouter);
 
+/*
 app.post('/room/book/:id', async (req, res) => {
+
     try {
         const room = await Room.findOne({_id: req.params.id});
         //if (!room) throw new CustomError.NotFoundError('Room not found with this id: ' + req.params.id);
@@ -83,6 +88,7 @@ app.post('/room/book/:id', async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).json({success: false, message: "Failed to book room"});
     }
 })
+*/
 
 
 app.use(notFoundMiddleware);

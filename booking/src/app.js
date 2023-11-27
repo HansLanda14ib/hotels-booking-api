@@ -21,9 +21,9 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
-const amqp = require("amqplib");
-const Booking = require("./bookingModel");
-const mongoose = require("mongoose");
+//const amqp = require("amqplib");
+//const Booking = require("./bookingModel");
+//const mongoose = require("mongoose");
 
 
 app.use(helmet());
@@ -36,6 +36,7 @@ app.use(express.static('./public'));
 
 
 // rabbitmq
+/*
 const setupBookingConsumer = async () => {
     try {
         const connection = await amqp.connect("amqp://localhost:5672");
@@ -101,7 +102,7 @@ const setupBookingConsumer = async () => {
         console.error("Failed to connect to RabbitMQ:", err.message);
     }
 };
-
+*/
 // other routes
 app.use('/api/v1/bookings', bookingRouter);
 app.use(notFoundMiddleware);
@@ -112,7 +113,7 @@ const start = async () => {
     try {
         await connectDB(process.env.MONGO_BOOKING_SERVICE);
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
-        await setupBookingConsumer();
+       // await setupBookingConsumer();
     } catch (error) {
         console.log(error);
     }
