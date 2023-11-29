@@ -57,17 +57,17 @@ const HotelSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
+    rooms:[
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Room'
+        }
+    ]
     },
-    {timestamps: true, toJSON: {virtuals: true}, toObject: {virtuals: true}}
+    {timestamps: true,}
 );
 HotelSchema.index({hotel: 1, user: 1}, {unique: true});
 
-HotelSchema.virtual('rooms', {
-    ref: 'Room',
-    localField: '_id',
-    foreignField: 'hotel',
-    justOne: false,
-})
 HotelSchema.pre('remove', async function () {
     await this.model('Room').deleteMany({hotel: this._id})
 })

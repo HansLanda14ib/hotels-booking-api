@@ -8,7 +8,7 @@ const Hotels = () => {
     useEffect(() => {
         axios.get('http://localhost:5001/api/v1/hotels')
             .then(response => {
-                setHotelData(response.data.hotels);
+                setHotelData(response.data);
             })
             .catch(error => {
                 console.error('Error fetching hotels:', error);

@@ -8,13 +8,13 @@ const {
 
 const {
     getAllBooking,
-    getSingleBooking,
+    getSingleBooking,bookedHotels,
     updateBooking,
     deleteBooking,
     getCustomerBookings,
     getHotelBookings, createBooking
 } = require('./bookingController');
-
+router.route('/bookedHotels').get(bookedHotels)
 router
     .route('/admin')
     .get([authenticateFirebaseToken, authorizePermissions('admin')], getAllBooking)
@@ -34,4 +34,5 @@ router
 router.route('/create').post(
     authenticateJWTToken,
     createBooking)
+
 module.exports = router;

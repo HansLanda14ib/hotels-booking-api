@@ -8,9 +8,12 @@ const {createJWT} = require('./utils/jwt')
 const createRoom = async (req, res) => {
     const userId = req.user.userId
     const hotel = await Hotel.findOne({user: userId})
+
     console.log(hotel)
     if (!hotel) throw new CustomError.NotFoundError('hotel not found, must add your hotel first')
     const room = await Room.create({...req.body, hotel: hotel._id, ownerEarnedPrice: req.body.basePrice * 0.95})
+    hotel.rooms.push(room._id)
+    await hotel.save()
     res.status(StatusCodes.CREATED).json(room);
 }
 const updateRoom = async (req, res) => {
@@ -49,6 +52,7 @@ const bookRoom = async (req, res) => {
         throw new CustomError.BadRequestError('number of guests exceeds the maximum number of people allowed')
     const payload = {
         roomId: room._id,
+        hotelId: room.hotel,
         maxPeople: room.maxPeople,
         checkInDate: req.body.checkInDate,
         checkOutDate: req.body.checkOutDate,

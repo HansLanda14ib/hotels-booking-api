@@ -1,7 +1,6 @@
 const Booking = require('./bookingModel');
 const {StatusCodes} = require("http-status-codes");
 const CustomError = require('./errors')
-const {checkPermissions} = require('./utils')
 const mongoose = require("mongoose");
 
 const getAllBooking = async (req, res) => {
@@ -162,7 +161,7 @@ const createBooking2 = async (room, payload) => {
 };
 */
 const createBooking = async (req, res) => {
-    const {roomId, maxPeople,basePrice, ownerEarnedPrice, checkInDate, checkOutDate, guests, user} = req.body
+    const {roomId,hotelId,basePrice, ownerEarnedPrice, checkInDate, checkOutDate, guests, user} = req.body
     const checkInFilter = [
         {
             checkInDate: {$lt: new Date(checkOutDate)},
@@ -191,6 +190,7 @@ const createBooking = async (req, res) => {
     const booking = new Booking
     ({
         room: roomId,
+        hotel: hotelId,
         user: user,
         checkInDate: checkInDate,
         checkOutDate: checkOutDate,
@@ -201,6 +201,7 @@ const createBooking = async (req, res) => {
     const bookingData = await booking.save();
     const bookingCreated = {
         room: bookingData.room,
+        hotel: bookingData.hotel,
         checkInDate: bookingData.checkInDate,
         checkOutDate: bookingData.checkOutDate,
         guests: bookingData.guests,
@@ -214,6 +215,27 @@ const createBooking = async (req, res) => {
 
 
 }
+const bookedHotels = async (req, res) => {
+ // from hotel service :     const response=await axios.get(`http://localhost:5002/api/v1/bookings/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
+    const {checkInDate, checkOutDate} = req.query
+    //console.log(checkInDate, checkOutDate)
+    const filter = [
+        {
+            checkInDate: {$lt: new Date(checkOutDate)},
+            checkOutDate: {$gt: new Date(checkInDate)}
+        },
+        {
+            checkOutDate: {$gt: new Date(checkInDate)},
+            checkInDate: {$lt: new Date(checkOutDate)}
+        }
+    ]
+    const docs =  await Booking.aggregate([{$match: {$or: filter}}])
+    //console.log("docs   :"+docs)
+    //extract the hotel ids
+    const roomsIds = docs.map(booking => booking.room)
+    //console.log(hotelIds)
+    return res.json(roomsIds)
+}
 module.exports = {
     getAllBooking,
     getSingleBooking,
@@ -221,6 +243,6 @@ module.exports = {
     deleteBooking,
     getCustomerBookings,
     getHotelBookings,
-    createBooking
+    createBooking,bookedHotels
 
 };
