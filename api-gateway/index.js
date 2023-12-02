@@ -15,6 +15,14 @@ if (process.env.NODE_ENV === 'production') {
     BookingsApi = process.env.BOOKING_DEV_URL;
 
 }
+// swagger
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./openapi.yaml');
+
+// Route api-docs to swagger
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Route requests to the product service
 app.use("/api/v1/hotels", createProxyMiddleware({
     target: hotelApi,

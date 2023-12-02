@@ -1,0 +1,565 @@
+openapi: 3.0.0
+info:
+  title: Hotels-Booking-API
+  description: "- Hotel Service: Built with Node.js and Express.js, utilizes MongoDB for its database.\n    \n- Auth Service: Utilizes Firebase for authentication and Firestore for the database.\n    \n- Booking Service: Another Node.js and Express.js service, interacting with a MongoDB database.\n    \n- Frontend: Developed using Angular."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://hotel-api-12oz.onrender.com/api/v1
+  variables: {}
+- url: https://booking-api-j0fx.onrender.com/api/v1
+  variables: {}
+paths:
+  /hotels:
+    post:
+      tags:
+      - Hotel
+      summary: add new Hotel
+      description:
+      operationId: addnewHotel
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/addnewHotelRequest'
+              - example:
+                  name: hotel Agadir
+                  location:
+                    country: Morocco
+                    addressLineOne: 123 Sample St
+                    addressLineTwo: Apt 456
+                    city: Agadir
+                    state: Sample State
+                    postCode: '12345'
+                  photos:
+                  - https://example.com/photo1.jpg
+                  - https://example.com/photo2.jpg
+                  title: Sample Hotel Title
+                  desc: This is a sample hotel description. It can contain information about the hotel's amenities, services, etc.
+            example:
+              name: hotel Agadir
+              location:
+                country: Morocco
+                addressLineOne: 123 Sample St
+                addressLineTwo: Apt 456
+                city: Agadir
+                state: Sample State
+                postCode: '12345'
+              photos:
+              - https://example.com/photo1.jpg
+              - https://example.com/photo2.jpg
+              title: Sample Hotel Title
+              desc: This is a sample hotel description. It can contain information about the hotel's amenities, services, etc.
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+    get:
+      tags:
+      - Hotel
+      summary: get all hotels
+      operationId: getallhotels
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /hotels/ID:
+    get:
+      tags:
+      - Hotel
+      summary: get hotel by Id
+      operationId: gethotelbyId
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+    patch:
+      tags:
+      - Hotel
+      summary: update hotel
+      operationId: updatehotel
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updatehotelrequest'
+              - example:
+                  title: hotel BAZI 2 updated
+            example:
+              title: hotel BAZI 2 updated
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /hotels/Id:
+    delete:
+      tags:
+      - Hotel
+      summary: delete hotel
+      operationId: deletehotel
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /hotels/available:
+    get:
+      tags:
+      - Hotel
+      summary: get available hotels
+      operationId: getavailablehotels
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /rooms:
+    post:
+      tags:
+      - Room
+      summary: add new Room
+      operationId: addnewRoom
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/addnewRoomRequest'
+              - example:
+                  title: room x4 casablanda
+                  basePrice: 3500
+                  maxPeople: 4
+                  bedrooms: 2
+                  beds: 2
+                  bathrooms: 1
+                  desc: room in hotel marrakech
+                  photos:
+                  - https://example.com/photo1.jpg
+                  - https://example.com/photo2.jpg
+                  number: 404
+            example:
+              title: room x4 casablanda
+              basePrice: 3500
+              maxPeople: 4
+              bedrooms: 2
+              beds: 2
+              bathrooms: 1
+              desc: room in hotel marrakech
+              photos:
+              - https://example.com/photo1.jpg
+              - https://example.com/photo2.jpg
+              number: 404
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /rooms/book/ID:
+    post:
+      tags:
+      - Room
+      summary: book Room
+      operationId: bookRoom
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/bookRoomRequest'
+              - example:
+                  checkInDate: 04-01-2024
+                  checkOutDate: 04-14-2024
+                  guests: 2
+            example:
+              checkInDate: 04-01-2024
+              checkOutDate: 04-14-2024
+              guests: 2
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /rooms/ID:
+    get:
+      tags:
+      - Room
+      summary: get room by Id
+      operationId: getroombyId
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+    patch:
+      tags:
+      - Room
+      summary: update room
+      operationId: updateroom
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updateroomrequest'
+              - example:
+                  title: UPDATED room title
+            example:
+              title: UPDATED room title
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+    delete:
+      tags:
+      - Room
+      summary: delete room
+      operationId: deleteroom
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /rooms/hotel/ID:
+    get:
+      tags:
+      - Room
+      summary: get all rooms
+      operationId: getallrooms
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://hotel-api-12oz.onrender.com/api/v1
+        variables: {}
+  /create:
+    post:
+      tags:
+      - booking
+      summary: create booking
+      operationId: createbooking
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createbookingrequest'
+              - example:
+                  checkInDate: 09-18-2024
+                  checkOutDate: 09-25-2024
+                  guests: 2
+                  user: testuser
+                  roomId: 655ca5c959976c1c64f0872f
+                  basePrice: 2000
+                  ownerEarnedPrice: 1800
+            example:
+              checkInDate: 09-18-2024
+              checkOutDate: 09-25-2024
+              guests: 2
+              user: testuser
+              roomId: 655ca5c959976c1c64f0872f
+              basePrice: 2000
+              ownerEarnedPrice: 1800
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://booking-api-j0fx.onrender.com/api/v1
+        variables: {}
+components:
+  schemas:
+    addnewHotelRequest:
+      title: addnewHotelRequest
+      required:
+      - name
+      - location
+      - photos
+      - title
+      - desc
+      type: object
+      properties:
+        name:
+          type: string
+        location:
+          allOf:
+          - $ref: '#/components/schemas/Location'
+          - {}
+        photos:
+          type: array
+          items:
+            type: string
+          description: ''
+        title:
+          type: string
+        desc:
+          type: string
+      example:
+        name: hotel Casablanca
+        location:
+          country: Morocco
+          addressLineOne: 123 Sample St
+          addressLineTwo: Apt 456
+          city: Casablanca
+          state: Sample State
+          postCode: '12345'
+        photos:
+        - https://example.com/photo1.jpg
+        - https://example.com/photo2.jpg
+        title: Sample Hotel Title
+        desc: This is a sample hotel description. It can contain information about the hotel's amenities, services, etc.
+    Location:
+      title: Location
+      required:
+      - country
+      - addressLineOne
+      - addressLineTwo
+      - city
+      - state
+      - postCode
+      type: object
+      properties:
+        country:
+          type: string
+        addressLineOne:
+          type: string
+        addressLineTwo:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postCode:
+          type: string
+      example:
+        country: Morocco
+        addressLineOne: 123 Sample St
+        addressLineTwo: Apt 456
+        city: Casablanca
+        state: Sample State
+        postCode: '12345'
+    updatehotelrequest:
+      title: updatehotelrequest
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+      example:
+        title: hotel BAZI 2 updated
+    addnewRoomRequest:
+      title: addnewRoomRequest
+      required:
+      - title
+      - basePrice
+      - maxPeople
+      - bedrooms
+      - beds
+      - bathrooms
+      - desc
+      - photos
+      - number
+      type: object
+      properties:
+        title:
+          type: string
+        basePrice:
+          type: integer
+          format: int32
+        maxPeople:
+          type: integer
+          format: int32
+        bedrooms:
+          type: integer
+          format: int32
+        beds:
+          type: integer
+          format: int32
+        bathrooms:
+          type: integer
+          format: int32
+        desc:
+          type: string
+        photos:
+          type: array
+          items:
+            type: string
+          description: ''
+        number:
+          type: integer
+          format: int32
+      example:
+        title: room x4 casablanda
+        basePrice: 3500
+        maxPeople: 4
+        bedrooms: 2
+        beds: 2
+        bathrooms: 1
+        desc: room in hotel marrakech
+        photos:
+        - https://example.com/photo1.jpg
+        - https://example.com/photo2.jpg
+        number: 404
+    bookRoomRequest:
+      title: bookRoomRequest
+      required:
+      - checkInDate
+      - checkOutDate
+      - guests
+      type: object
+      properties:
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        guests:
+          type: integer
+          format: int32
+      example:
+        checkInDate: 04-01-2024
+        checkOutDate: 04-14-2024
+        guests: 2
+    updateroomrequest:
+      title: updateroomrequest
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+      example:
+        title: UPDATED room title
+    createbookingrequest:
+      title: createbookingrequest
+      required:
+      - checkInDate
+      - checkOutDate
+      - guests
+      - user
+      - roomId
+      - basePrice
+      - ownerEarnedPrice
+      type: object
+      properties:
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        guests:
+          type: integer
+          format: int32
+        user:
+          type: string
+        roomId:
+          type: string
+        basePrice:
+          type: integer
+          format: int32
+        ownerEarnedPrice:
+          type: integer
+          format: int32
+      example:
+        checkInDate: 09-18-2024
+        checkOutDate: 09-25-2024
+        guests: 2
+        user: testuser
+        roomId: 655ca5c959976c1c64f0872f
+        basePrice: 2000
+        ownerEarnedPrice: 1800
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Hotel
+- name: Room
+- name: booking
