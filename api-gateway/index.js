@@ -1,7 +1,6 @@
 const express = require("express");
-const httpProxy = require("http-proxy");
+const { createProxyMiddleware } = require('http-proxy-middleware');
 require('dotenv').config();
-const proxy = httpProxy.createProxyServer();
 const app = express();
 const service_hotel_port = process.env.SERVICE_HOTEL_PORT || 5001;
 const service_booking_port = process.env.SERVICE_BOOKING_PORT  || 5002;
@@ -18,15 +17,15 @@ else {
 
 }
 // Route requests to the product service
-app.use("/hotels", (req, res) => {
-    console.log(hotelApi)
-proxy.web(req, res, {target: `${hotelApi}`});
-});
-
-app.use("/bookings", (req, res) => {
-    console.log(BookingsApi)
-    proxy.web(req, res, {target: `${BookingsApi}`});
-});
+app.use("/api/v1/hotels", createProxyMiddleware({
+    target: hotelApi,
+    changeOrigin: true
+}));
+// Route requests to the booking service
+app.use("/api/v1/bookings", createProxyMiddleware({
+    target: BookingsApi,
+    changeOrigin: true
+}));
 
 
 // Start the API Gateway on port 5555
