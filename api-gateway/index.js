@@ -21,7 +21,10 @@ const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./openapi.yaml');
 
 // Route api-docs to swagger
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/', (req, res) => {
+    res.send('<h1>Booking Hotels API</h1><a href="/api-docs">Documentation</a>');
+});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Route requests to the product service
 app.use("/api/v1/hotels", createProxyMiddleware({
