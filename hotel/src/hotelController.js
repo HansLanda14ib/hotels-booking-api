@@ -3,6 +3,15 @@ const {StatusCodes} = require("http-status-codes");
 const CustomError = require('./errors')
 const {checkPermissions} = require('./utils')
 const axios = require('axios')
+
+let apiUrl;
+
+if (process.env.NODE_ENV === 'production') {
+    apiUrl = process.env.BOOKING_PROD_URL;
+} else {
+    apiUrl = process.env.BOOKING_DEV_URL;
+}
+
 const createHotel = async (req, res) => {
     const userId = req.user.userId
     const {name, location, title, desc, photos} = req.body
@@ -38,7 +47,7 @@ const getSingleHotel = async (req, res) => {
 const availableHotels = async (req, res) => {
     try {
         const {checkInDate, checkOutDate, guests, city} = req.body
-        const response = await axios.get(`http://localhost:5002/api/v1/bookings/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
+        const response = await axios.get(`${apiUrl}/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
         const roomsIds = response.data
         console.log(roomsIds)
         let hotels = await Hotel.find({'location.city': city}).populate({ //  {maxPeople: {$gte: guests}}
