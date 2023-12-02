@@ -18,12 +18,12 @@ else {
 
 }
 // Route requests to the product service
-app.use("/api/v1/hotels", (req, res) => {
+app.use("/hotels", (req, res) => {
     console.log(hotelApi)
 proxy.web(req, res, {target: `${hotelApi}`});
 });
 
-app.use("/api/v1/bookings", (req, res) => {
+app.use("/bookings", (req, res) => {
     console.log(BookingsApi)
     proxy.web(req, res, {target: `${BookingsApi}`});
 });
