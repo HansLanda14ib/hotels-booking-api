@@ -47,6 +47,7 @@ const getSingleHotel = async (req, res) => {
 const availableHotels = async (req, res) => {
     try {
         const {checkInDate, checkOutDate, guests, city} = req.body
+        console.log(checkInDate, checkOutDate, guests, city)
         const response = await axios.get(`${apiUrl}/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
         const roomsIds = response.data
         console.log(roomsIds)

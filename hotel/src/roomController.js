@@ -5,6 +5,15 @@ const {StatusCodes} = require("http-status-codes");
 const {checkPermissions} = require("./utils");
 const axios = require('axios')
 const {createJWT} = require('./utils/jwt')
+
+let apiUrl;
+
+if (process.env.NODE_ENV === 'production') {
+    apiUrl = process.env.BOOKING_PROD_URL;
+} else {
+    apiUrl = process.env.BOOKING_DEV_URL;
+}
+
 const createRoom = async (req, res) => {
     const userId = req.user.userId
     const hotel = await Hotel.findOne({user: userId})
@@ -70,7 +79,7 @@ const bookRoom = async (req, res) => {
                 'x-access-token': token // Include the secret/token in the Authorization header
             }
         };
-        const response = await axios.post('http://localhost:5002/api/v1/bookings/create', payload, config)
+        const response = await axios.post('${apiUrl}/create', payload, config)
         res.status(StatusCodes.CREATED).json(response.data);
     } catch (error) {
         //console.log(error)
