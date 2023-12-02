@@ -9,7 +9,9 @@
     "start:booking": "cd booking && nodemon index.js",
     "start:frontend": "cd frontend && npm start",
     "start:api-gateway": "cd api-gateway && node index.js",
-    "start:hotel-booking": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \" --names \"Hotel,Booking\" --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold\""
+    "start:backend": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \"  \" cd api-gateway && node index.js\" --names \"Hotel,Booking,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgRed.bold,bgGreen.bold\"",
+    "start:hotel-booking": "concurrently --kill-others-on-fail \" cd hotel && nodemon index.js \" \" cd booking && nodemon index.js \" --names \"Hotel,Booking\" --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold\"",
+    "install:all": "concurrently --kill-others-on-fail \" cd hotel && npm install \" \" cd booking && npm install \" \" cd api-gateway && npm install \" --names \"Hotel,Booking,ApiGateway\" --prefix \"[{name}]\" --prefix-colors \"bgRed.bold,bgGreen.bold\""
   },
   "keywords": [],
   "author": "",
