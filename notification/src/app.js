@@ -24,10 +24,17 @@ const amqp = require('amqplib');
 const queue = 'email-task';
 const subject = 'Welcome to Hotels Booking';
 
+let url_server;
+if (process.env.NODE_ENV === 'production') {
+    url_server = process.env.AMQP_CLOUD;
+} else {
+    url_server = process.env.AMQP_SERVER;
 
+}
 const connectToRabbitMQ = async () => {
     try {
-        const connection = await amqp.connect(process.env.AMQP_SERVER);
+        const connection = await amqp.connect(url_server);
+        console.log('Connected to RabbitMQ' + url_server)
         const channel = await connection.createChannel();
 
         await channel.assertQueue(queue);
