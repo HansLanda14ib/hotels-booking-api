@@ -46,8 +46,27 @@ const getSingleHotel = async (req, res) => {
 
 const availableHotels = async (req, res) => {
     try {
-        const {checkInDate, checkOutDate, guests, city} = req.body
+        const {checkInDate, checkOutDate, guests, city} = req.query
+        console.log("params")
         console.log(checkInDate, checkOutDate, guests, city)
+        if (!checkInDate || !checkOutDate || !guests || !city)
+            throw new CustomError.BadRequestError('Missing required query parameters')
+        if (new Date(checkInDate) > new Date(checkOutDate))
+            throw new CustomError.BadRequestError('Check in date must be before check out date')
+        if (new Date(checkInDate) < new Date())
+            throw new CustomError.BadRequestError('Check in date must be in the future')
+        if (guests < 1)
+            throw new CustomError.BadRequestError('Guests must be at least 1')
+        // Check if checkInDate is within the next year
+        const maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        if (new Date(checkInDate) > maxDate)
+            throw new CustomError.BadRequestError('Check in date must be within one year from now')
+        // check duration more than one night
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        const duration = Math.round(Math.abs((new Date(checkInDate) - new Date(checkOutDate)) / oneDay));
+        if (duration < 1)
+            throw new CustomError.BadRequestError('Duration must be at least one night')
         console.log(`${apiUrl}/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
         const response = await axios.get(`${apiUrl}/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
         const roomsIds = response.data
