@@ -154,3 +154,5 @@ app.get('/', (req, res) => {
 app.listen(5005, () => {
     console.log(`Notification app running on port: 5005`);
 });
+
+module.exports = app;
