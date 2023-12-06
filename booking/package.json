@@ -15,7 +15,6 @@
     "http-status-codes": "^2.1.4",
     "mongoose": "^6.0.6",
     "morgan": "^1.10.0",
-    "stripe": "^10.16.0",
     "validator": "^13.6.0",
     "xss-clean": "^0.1.1"
   },

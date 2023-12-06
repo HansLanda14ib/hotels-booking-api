@@ -2,8 +2,6 @@ const express = require("express");
 const {createProxyMiddleware} = require('http-proxy-middleware');
 require('dotenv').config();
 const app = express();
-const service_hotel_port = process.env.SERVICE_HOTEL_PORT || 5001;
-const service_booking_port = process.env.SERVICE_BOOKING_PORT || 5002;
 const api_gateway_port = process.env.API_GATEWAY_PORT || 5555;
 // Route requests to the front-end service
 let hotelApi, BookingsApi;
@@ -20,11 +18,19 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./openapi.yaml');
 
+// custom swagger
+const options = {
+    customSiteTitle: "TravelEase Api-docs",
+    customCss: '.swagger-ui .topbar { display: none }',
+    customFavicon: './assets/favicon.ico'
+};
+
+app.use('/api-docs/favicon.ico', express.static('./assets/favicon.ico'));
 // Route api-docs to swagger
 app.get('/', (req, res) => {
     res.send('<h1>Booking Hotels API</h1><a href="/api-docs">Documentation</a>');
 });
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Route requests to the product service
 app.use("/api/v1/hotels", createProxyMiddleware({

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Hotels-Booking-API
+  title: TravelEase Api-docs
   description: "- Hotel Service: Built with Node.js and Express.js, utilizes MongoDB for its database.\n    \n- Auth Service: Utilizes Firebase for authentication and Firestore for the database.\n    \n- Booking Service: Another Node.js and Express.js service, interacting with a MongoDB database.\n    \n- Frontend: Developed using Angular."
   contact: {}
   version: '1.0'

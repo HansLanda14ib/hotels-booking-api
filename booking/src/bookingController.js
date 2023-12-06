@@ -2,7 +2,7 @@ const Booking = require('./bookingModel');
 const {StatusCodes} = require("http-status-codes");
 const CustomError = require('./errors')
 const mongoose = require("mongoose");
-
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 const getAllBooking = async (req, res) => {
     const bookings = await Booking.find({});
     res.status(StatusCodes.OK).json({
@@ -15,18 +15,21 @@ const getAllBooking = async (req, res) => {
 const getSingleBooking = async (req, res) => {
     const {id: bookingId} = req.params
     const booking = await Booking.findOne({_id: bookingId})
-    if (!booking) throw  new CustomError.NotFoundError('no booking with this id')
+    if (!booking) throw new CustomError.NotFoundError('no booking with this id')
     res.status(StatusCodes.OK).json(booking)
 
 }
 
 const updateBooking = async (req, res) => {
     const {id: bookingId} = req.params
-    const {paymentStatus, guests} = req.body
+    const {paymentIntentId} = req.body;
     const booking = await Booking.findOne({_id: bookingId})
-    if (!booking) throw  new CustomError.NotFoundError('no booking with this id')
-    booking.paymentStatus = paymentStatus
-    booking.guests = guests
+    if (!booking) throw new CustomError.NotFoundError('no booking with this id')
+
+    // don't forget to check if the user is the owner of the booking
+
+    booking.paymentIntentId = paymentIntentId
+    booking.paymentStatus = 'Paid'
     await booking.save()
     res.status(StatusCodes.OK)
 
@@ -52,8 +55,6 @@ const getCustomerBookings = async (req, res) => {
     })
 }
 const getHotelBookings = async (req, res) => {
-
-
 }
 /*
 const createBooking = async (room, payload) => {
@@ -161,7 +162,8 @@ const createBooking2 = async (room, payload) => {
 };
 */
 const createBooking = async (req, res) => {
-    const {roomId,hotelId,basePrice, ownerEarnedPrice, checkInDate, checkOutDate, guests, user} = req.body
+    const {roomId, hotelId, basePrice, ownerEarnedPrice, checkInDate, checkOutDate, guests, user} = req.body
+    console.log(req.body)
     const checkInFilter = [
         {
             checkInDate: {$lt: new Date(checkOutDate)},
@@ -187,6 +189,7 @@ const createBooking = async (req, res) => {
 
     }
     console.log('No conflicting bookings found for the room.');
+
     const booking = new Booking
     ({
         room: roomId,
@@ -198,8 +201,31 @@ const createBooking = async (req, res) => {
         basePrice: basePrice,
         ownerEarnedPrice: ownerEarnedPrice
     });
+    //console.log("booking: " + booking)
+
     const bookingData = await booking.save();
+
+    // calculate number of staying nights
+    const checkIn = new Date(checkInDate)
+    const checkOut = new Date(checkOutDate)
+    const numberOfNights = (checkOut - checkIn) / (1000 * 3600 * 24)
+
+    // calculate total amount
+    const totalAmount = bookingData.totalPrice * numberOfNights
+    console.log("checkIn: " + checkIn)
+    console.log("checkOut: " + checkOut)
+    console.log("numberOfNights: " + numberOfNights)
+    console.log("totalAmount: " + totalAmount)
+
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: totalAmount * 100,
+        currency: 'usd',
+    });
+    console.log("paymentIntent.client_secret: " + paymentIntent.client_secret)
+
     const bookingCreated = {
+        _id: bookingData._id,
         room: bookingData.room,
         hotel: bookingData.hotel,
         checkInDate: bookingData.checkInDate,
@@ -211,12 +237,11 @@ const createBooking = async (req, res) => {
         taxes: bookingData.taxes,
         totalPrice: bookingData.totalPrice,
     }
-    return res.json(bookingCreated)
+    return res.json({bookingCreated, clientSecret: paymentIntent.client_secret})
 
 
 }
 const bookedHotels = async (req, res) => {
- // from hotel service :     const response=await axios.get(`http://localhost:5002/api/v1/bookings/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
     const {checkInDate, checkOutDate} = req.query
     //console.log(checkInDate, checkOutDate)
     const filter = [
@@ -229,7 +254,7 @@ const bookedHotels = async (req, res) => {
             checkInDate: {$lt: new Date(checkOutDate)}
         }
     ]
-    const docs =  await Booking.aggregate([{$match: {$or: filter}}])
+    const docs = await Booking.aggregate([{$match: {$or: filter}}])
     //console.log("docs   :"+docs)
     //extract the hotel ids
     const roomsIds = docs.map(booking => booking.room)
@@ -243,6 +268,6 @@ module.exports = {
     deleteBooking,
     getCustomerBookings,
     getHotelBookings,
-    createBooking,bookedHotels
+    createBooking, bookedHotels
 
 };

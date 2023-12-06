@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Confirmation</title>
+    <style>
+        /* Add your CSS styles here */
+        /* For example: */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Booking Confirmation</h2>
+    <p>Thanks ${name},</p>
+    <p>Your booking has been confirmed, and you are expected to be at our hotel on: <strong>${checkInDate}</strong>.</p>
+    <p>The <strong>${hotel_name}</strong> welcomes you!</p>
+    <a href="https://frontEnd.com/bookings/${booking_id}" class="button">See My Booking</a>
+    <h3>Hotel Information:</h3>
+    <ul>
+        <li>Hotel Address: ${hotel_address}</li>
+        <li><img src="${hotel_photo}" alt="Hotel Photo" style="max-width: 300px;"></li>
+    </ul>
+    <h3>Booking Details:</h3>
+    <ul>
+        <li>Number of Nights: ${num_nights}</li>
+        <li>Check-In: ${checkIn}</li>
+        <li>Check-Out: ${checkOut}</li>
+    </ul>
+    <h3>Room Information:</h3>
+    <ul>
+        <li>Room: ${room_title}</li>
+        <li>Room Number: ${room_number}</li>
+        <li>Room Description: ${room_desc}</li>
+        <li>Room Photo: <img src="${room_photo}" alt="Room Photo" style="max-width: 300px;"></li>
+        <li>Price: ${room_price} $</li>
+        <li>Taxes: ${taxes} $</li>
+        <li>Total Price: ${totalPrice} $</li>
+    </ul>
+    <p>For more information or assistance, please contact us at <a
+            href="mailto:bibzazne@gmail.com">bibzazne@gmail.com</a>.</p>
+    <p>Thank you!</p>
+</div>
+</body>
+</html>

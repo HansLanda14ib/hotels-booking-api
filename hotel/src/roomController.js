@@ -5,9 +5,25 @@ const {StatusCodes} = require("http-status-codes");
 const {checkPermissions} = require("./utils");
 const axios = require('axios')
 const {createJWT} = require('./utils/jwt')
+const amqp = require("amqplib");
+const queue = 'email-task';
+
+// rabbitmq
+let channel, connection;
+
+async function connect() {
+
+    connection = await amqp.connect(process.env.AMQP_SERVER);
+    channel = await connection.createChannel();
+    await channel.assertQueue(queue);
+    console.log("Hotel Service : RabbitMQ connected");
+}
+
+connect();
+// Publisher
+
 
 let apiUrl;
-
 if (process.env.NODE_ENV === 'production') {
     apiUrl = process.env.BOOKING_PROD_URL;
 } else {
@@ -56,9 +72,12 @@ const getSingleRoom = async (req, res) => {
 const bookRoom = async (req, res) => {
     const roomId = req.params.id
     const room = await Room.findOne({_id: roomId})
+    const hotel = await Hotel.findOne({_id: room.hotel})
+
     if (!room) throw new CustomError.NotFoundError('room not found with this id: ' + req.params.id)
     if (req.body.guests > room.maxPeople)
         throw new CustomError.BadRequestError('number of guests exceeds the maximum number of people allowed')
+    //console.log(req.user.userId)
     const payload = {
         roomId: room._id,
         hotelId: room.hotel,
@@ -76,13 +95,23 @@ const bookRoom = async (req, res) => {
         //console.log(token)
         const config = {
             headers: {
-                'x-access-token': token // Include the secret/token in the Authorization header
+                'x-access-token': token
             }
         };
-        const response = await axios.post('${apiUrl}/create', payload, config)
-        res.status(StatusCodes.CREATED).json(response.data);
+        //console.log(payload)
+        console.log(apiUrl)
+        const response = await axios.post(`${apiUrl}/create`, payload, config)
+        //send to queue
+        await channel.sendToQueue(queue, Buffer.from(JSON.stringify(({
+            mail: req.user.email,
+            hotel: hotel,
+            room: room,
+            booking: response.data
+        }))));
+        //const {bookingCreated, clientSecret} = response.data
+        res.status(StatusCodes.CREATED).json(response.data)
     } catch (error) {
-        //console.log(error)
+        console.log(error)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: error.response.data});
     }
 
