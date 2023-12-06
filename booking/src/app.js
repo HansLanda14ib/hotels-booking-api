@@ -3,7 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5002;
-
+const uri = process.env.MONGO_BOOKING_SERVICE || 'mongodb+srv://hanslanda:halamadrid11@cluster0.zep2i0j.mongodb.net/booking-service?retryWrites=true&w=majority';
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -111,7 +111,7 @@ app.use(errorHandlerMiddleware);
 
 const start = async () => {
     try {
-        await connectDB(process.env.MONGO_BOOKING_SERVICE);
+        await connectDB(uri);
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
        // await setupBookingConsumer();
     } catch (error) {

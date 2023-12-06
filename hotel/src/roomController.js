@@ -7,13 +7,18 @@ const axios = require('axios')
 const {createJWT} = require('./utils/jwt')
 const amqp = require("amqplib");
 const queue = 'email-task';
-
+require('dotenv').config()
+let url_server;
+if (process.env.NODE_ENV !== 'production') {
+    url_server = process.env.AMQP_SERVER
+} else {
+    url_server = process.env.AMQP_CLOUD
+}
 // rabbitmq
 let channel, connection;
 
 async function connect() {
-
-    connection = await amqp.connect(process.env.AMQP_SERVER);
+    connection = await amqp.connect(url_server);
     channel = await connection.createChannel();
     await channel.assertQueue(queue);
     console.log("Hotel Service : RabbitMQ connected");

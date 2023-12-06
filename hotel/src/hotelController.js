@@ -7,9 +7,9 @@ const axios = require('axios')
 let apiUrl;
 
 if (process.env.NODE_ENV === 'production') {
-    apiUrl = process.env.BOOKING_PROD_URL;
+    apiUrl = process.env.BOOKING_PROD_URL || 'https://booking-api-j0fx.onrender.com/api/v1/bookings'
 } else {
-    apiUrl = process.env.BOOKING_DEV_URL;
+    apiUrl = process.env.BOOKING_DEV_URL || 'http://localhost:5002/api/v1/bookings';
 }
 
 const createHotel = async (req, res) => {

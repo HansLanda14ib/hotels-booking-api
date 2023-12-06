@@ -9,7 +9,7 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 //db
 const connectDB = require('./db/connect');
-
+ const uri = process.env.MONGO_HOTEL_SERVICE || 'mongodb+srv://hanslanda:halamadrid11@cluster0.zep2i0j.mongodb.net/hotel-service?retryWrites=true&w=majority';
 
 // routes
 const hotelRouter = require('./hotelRoutes');
@@ -100,7 +100,7 @@ const port = process.env.PORT || 5001;
 
 const start = async () => {
     try {
-        await connectDB(process.env.MONGO_HOTEL_SERVICE);
+        await connectDB(uri);
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
 
     } catch (error) {
