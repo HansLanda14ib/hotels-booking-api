@@ -161,7 +161,6 @@ module.exports = {
     updateBooking,
     deleteBooking,
     getCustomerBookings,
-    getHotelBookings,
     createBooking, bookedHotels
 
 };

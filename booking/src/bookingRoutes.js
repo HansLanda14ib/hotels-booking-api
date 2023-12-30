@@ -8,11 +8,11 @@ const {
 
 const {
     getAllBooking,
-    getSingleBooking,bookedHotels,
+    getSingleBooking, bookedHotels,
     updateBooking,
     deleteBooking,
     getCustomerBookings,
-    getHotelBookings, createBooking
+    createBooking
 } = require('./bookingController');
 router.route('/bookedHotels').get(bookedHotels)
 router
@@ -27,9 +27,6 @@ router
 router
     .get('/', authenticateFirebaseToken, getCustomerBookings)
 
-router
-    .route('/owner')
-    .get([authenticateFirebaseToken, authorizePermissions('owner')], getHotelBookings)
 
 router.route('/create').post(
     authenticateJWTToken,
