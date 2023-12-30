@@ -37,8 +37,8 @@ const decodeToken = async (req, res, next) => {
 
 const authenticateUser = async (req, res, next) => {
     const authHeader = req.headers.authorization
-    if (!authHeader || !authHeader.startsWith('Bearer')) {
-        throw new CustomError.UnauthenticatedError('Authentication invalid')
+    if (!authHeader?.startsWith('Bearer')) {
+        throw new CustomError.UnauthenticatedError('Authentication invalid');
     }
     const token = authHeader.split(' ')[1];
 

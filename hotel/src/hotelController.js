@@ -39,7 +39,7 @@ const getAllHotels = async (req, res) => {
     res.status(StatusCodes.OK).json(hotels)
 }
 const getSingleHotel = async (req, res) => {
-    const hotel = await Hotel.findOne({_id: req.params.id})
+    const hotel = await Hotel.findOne({_id: req.params.id}).populate('rooms')
     if (!hotel) throw new CustomError.NotFoundError('hotel not found')
     res.status(StatusCodes.OK).json(hotel)
 }
@@ -71,7 +71,7 @@ const availableHotels = async (req, res) => {
         const response = await axios.get(`${apiUrl}/bookedHotels?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
         const roomsIds = response.data
         console.log(roomsIds)
-        let hotels = await Hotel.find({'location.city': city}).populate({ //  {maxPeople: {$gte: guests}}
+        let hotels = await Hotel.find({'location.city': city}).populate({
             path: 'rooms',
             match: {
                 maxPeople: {$gte: guests}, _id: {$nin: roomsIds}

@@ -59,8 +59,8 @@ const bookingSchema = new mongoose.Schema({
         type: Number, required: true,
         validate: []
     },
-    basePrice: {type: Number, required: true},
-    ownerEarnedPrice: {type: Number, required: true},
+    basePrice: {type: Number, required: true}, // 100 per night included fees 10%
+    ownerEarnedPrice: {type: Number, required: true}, // 90
     taxes: {type: Number},
     totalPrice: {type: Number},
     paymentStatus: {
