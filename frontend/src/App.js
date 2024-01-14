@@ -61,8 +61,8 @@ function App() {
             const user = userCredential.user;
             //console.log(user)
             // Update additional user information in Firestore
-            const userDocRef = db.collection('users').doc(user.uid);
-            console.log(firebase.firestore().collection('users').doc(user.uid))
+            const userDocRef = db.collection('user').doc(user.uid);
+            console.log(firebase.firestore().collection('user').doc(user.uid))
             await userDocRef.set({
                 firstName: firstName,
                 lastName: lastName,

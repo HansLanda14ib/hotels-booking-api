@@ -3,11 +3,13 @@ const nodemailer = require('nodemailer');
 const sendEmailEthereal = async (to, subject, message) => {
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
-        secure : true,
         port: 587,
+        secure: false, // use SSL
         auth: {
-            user: 'milo48@ethereal.email',
-            pass: '3s3B5ekTVg2uh7JEzj'
+            user: 'karen.waters83@ethereal.email',
+            pass: '7hUasRXaEWr2v3vGGE'
+        }, tls: {
+            rejectUnauthorized: false
         }
     });
 
