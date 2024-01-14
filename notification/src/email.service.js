@@ -6,8 +6,8 @@ const sendEmailEthereal = async (to, subject, message) => {
         port: 587,
         secure: false, // use SSL
         auth: {
-            user: 'karen.waters83@ethereal.email',
-            pass: '7hUasRXaEWr2v3vGGE'
+            user: 'ofelia.marks@ethereal.email',
+            pass: 'KV78CBb1dbEgKSRCbj'
         }, tls: {
             rejectUnauthorized: false
         }
