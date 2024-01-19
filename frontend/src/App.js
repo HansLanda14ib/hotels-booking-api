@@ -7,6 +7,7 @@ import ListOfTodo from './components/ListOfTodo';
 import Hotels from "./components/Hotels";
 //import GetAllUsers from "./components/GetAllUsers";
 const db = firebase.firestore();
+
 function App() {
     const [auth, setAuth] = useState(
         window.localStorage.getItem('auth') === 'true'
@@ -103,92 +104,95 @@ function App() {
     };
     return (
         <div className="App">
-
-            {auth ? (<div>
-                    <ListOfTodo token={token}/>
-                    <button onClick={logout}>Logout</button>
-                </div>
-
-
-            ) : (<div>
-                    <button onClick={loginWithGoogle}>Login with Google</button>
-                    <div className='signup'>
-                        <h2>Sign Up</h2>
-                        <form onSubmit={handleSignUp}>
-                            <div>
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>Password:</label>
-                                <input
-                                    type="current-password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>First Name:</label>
-                                <input
-                                    type="text"
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>Last Name:</label>
-                                <input
-                                    type="text"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>Phone Number:</label>
-                                <input
-                                    type="text"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
-                            </div>
-                            <button type="submit">Sign Up</button>
-                        </form>
-                        {error && <p>{error}</p>}
+            <div>
+            </div>
+            <div>
+                {auth ? (<div>
+                        <ListOfTodo token={token}/>
+                        <button onClick={logout}>Logout</button>
                     </div>
-                    <div className="signin">
 
 
-                         <form onSubmit={handleSignIn}>
-                            <div>
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>Password:</label>
-                                <input
-                                    type="current-password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <button type="submit">Sign In</button>
-                        </form>
+                ) : (<div>
+                        <button onClick={loginWithGoogle}>Login with Google</button>
+                        <div className='signup'>
+                            <h2>Sign Up</h2>
+                            <form onSubmit={handleSignUp}>
+                                <div>
+                                    <label>Email:</label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Password:</label>
+                                    <input
+                                        type="current-password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>First Name:</label>
+                                    <input
+                                        type="text"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Last Name:</label>
+                                    <input
+                                        type="text"
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Phone Number:</label>
+                                    <input
+                                        type="text"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                    />
+                                </div>
+                                <button type="submit">Sign Up</button>
+                            </form>
+                            {error && <p>{error}</p>}
+                        </div>
+                        <div className="signin">
 
 
+                            <form onSubmit={handleSignIn}>
+                                <div>
+                                    <label>Email:</label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Password:</label>
+                                    <input
+                                        type="current-password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <button type="submit">Sign In</button>
+                            </form>
+
+
+                        </div>
                     </div>
-                </div>
-            )}
-            {/*<GetAllUsers/>*/}
-            <Hotels/>
+                )}
+                {/*<GetAllUsers/>*/}
+                <Hotels/>
 
+            </div>
         </div>
     );
 }
