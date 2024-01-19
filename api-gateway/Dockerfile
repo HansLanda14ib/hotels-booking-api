@@ -18,8 +18,8 @@ COPY . .
 ENV API_GATEWAY_PORT=5555
 ENV NODE_ENV=production
 # For production
-HOTEL_PROD_URL=http://localhost:5001/api/v1/hotels
-BOOKING_PROD_URL=https://localhost:5002/api/v1/bookings
+ENV HOTEL_PROD_URL=http://localhost:5001/api/v1/hotels
+ENV BOOKING_PROD_URL=https://localhost:5002/api/v1/bookings
 # Expose the port on which the app will run
 EXPOSE 5555
 
