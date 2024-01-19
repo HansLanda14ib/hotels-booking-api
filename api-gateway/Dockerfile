@@ -15,11 +15,11 @@ COPY . .
 
 
 # Set environment variables
-ENV API_GATEWAY_PORT=3000
+ENV API_GATEWAY_PORT=5555
 ENV NODE_ENV=production
 # For production
-HOTEL_PROD_URL=https://hotel-api-12oz.onrender.com/api/v1/hotels
-BOOKING_PROD_URL=https://booking-api-j0fx.onrender.com/api/v1/bookings
+HOTEL_PROD_URL=http://localhost:5001/api/v1/hotels
+BOOKING_PROD_URL=https://localhost:5002/api/v1/bookings
 # Expose the port on which the app will run
 EXPOSE 5555
 

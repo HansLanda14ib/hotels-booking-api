@@ -24,7 +24,7 @@ ENV JWT_SECRET="qBU4itbebGRi6AkKUw5WlyO3sSMLeqMd"
 ENV JWT_LIFETIME=7d
 ENV GOOGLE_APPLICATION_CREDENTIALS=./firebase/service-account.json
 # For production
-ENV BOOKING_PROD_URL="https://booking-api-j0fx.onrender.com/api/v1/bookings"
+ENV BOOKING_PROD_URL="http://localhost:5002/api/v1/bookings"
 
 # Expose the port on which the app will run
 EXPOSE 5001
