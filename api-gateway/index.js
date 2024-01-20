@@ -52,5 +52,5 @@ app.use("/api/v1/bookings", createProxyMiddleware({
 
 // Start the API Gateway on port 5555
 app.listen(api_gateway_port, () => {
-    console.log(`API Gateway isss listening on port ${api_gateway_port}`);
+    console.log(`API Gateway listening on port ${api_gateway_port}`);
 });
